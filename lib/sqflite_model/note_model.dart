@@ -12,7 +12,7 @@ factory NoteModel.fromMap(Map<String, dynamic> map){
   return NoteModel(
       note_id: map[AppDataBase.NOTE_ID],
       note_title: map[AppDataBase.NOTE_TITLE],
-      note_desc: map[AppDataBase.NOTE_DESC]
+      note_desc: map[AppDataBase.NOTE_DESC],
   );
 }
 

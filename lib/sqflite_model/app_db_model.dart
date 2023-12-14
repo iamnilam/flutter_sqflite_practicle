@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_sqflite_practicle/sqflite_model/note_model.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,11 +13,11 @@ class AppDataBase {
   Database? myDB;
 
   //tables name
-  static final String NOTE_TABLE = "notes";
+  static const String NOTE_TABLE = "notes";
   //Column
-  static final String NOTE_ID = "noteId";
-  static final String NOTE_TITLE = "title";
-  static final String NOTE_DESC = "desc";
+  static const String NOTE_ID = "noteId";
+  static const String NOTE_TITLE = "title";
+  static const String NOTE_DESC = "desc";
 
   Future<Database> initDB() async {
     var docDirectory = await getApplicationDocumentsDirectory();
@@ -57,4 +58,17 @@ class AppDataBase {
 
     return arrNotes;
   }
+
+void updateNote(NoteModel updatedNote)async{
+    var db = await getDB();
+    //db.update(NOTE_TABLE, updatedNote.toMap(),  where: "$NOTE_ID = ${updatedNote.note_id}", );
+    db.update(NOTE_TABLE, updatedNote.toMap(),  where: "$NOTE_ID = ?", whereArgs: ['${updatedNote.note_id}'] );
+}
+
+
+void deleteNote(int id) async{
+    var db = await getDB();
+    db.delete(NOTE_TABLE, where: "$NOTE_ID = $id");
+
+}
 }
